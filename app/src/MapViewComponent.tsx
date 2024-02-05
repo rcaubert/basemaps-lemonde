@@ -67,6 +67,7 @@ const FeaturesProperties = (props: { features: MapGeoJSONFeature[] }) => {
 };
 
 export const isValidPMTiles = (tiles?: string): boolean => {
+  console.log("isvalidpmtiles", tiles)
   if (!tiles) return false;
   if (!tiles.startsWith("http") && tiles.endsWith(".pmtiles")) return true;
   if (tiles.startsWith("http") && new URL(tiles).pathname.endsWith(".pmtiles"))
@@ -99,6 +100,7 @@ function getMaplibreStyle(
     "https://protomaps.github.io/basemaps-assets/fonts/{fontstack}/{range}.pbf";
 
   if (droppedArchive) {
+    console.log("dropped")
     style.sources = {
       protomaps: {
         type: "vector",
@@ -109,6 +111,7 @@ function getMaplibreStyle(
       },
     };
   } else {
+    console.log("no dropped archive")
     style.sources = {
       protomaps: {
         type: "vector",
@@ -339,6 +342,7 @@ export default function MapViewComponent() {
   // TODO: language tag selector
 
   useEffect(() => {
+    console.log("mapviewcomponent", tiles)
     if (!tiles) {
       fetch("https://build-metadata.protomaps.dev/builds.json")
         .then((r) => {
@@ -353,7 +357,7 @@ export default function MapViewComponent() {
   const handleKeyPress = (event: KeyboardEvent<HTMLDivElement>) => {
     const c = event.charCode;
     if (c >= 49 && c <= 53) {
-      setTheme(["light", "dark", "white", "grayscale", "black"][c - 49]);
+      setTheme(["light", "dark", "white", "grayscale", "black", "contrast"][c - 49]);
     }
   };
 
@@ -419,6 +423,7 @@ export default function MapViewComponent() {
           <option value="white">data viz (white)</option>
           <option value="grayscale">data viz (grayscale)</option>
           <option value="black">data viz (black)</option>
+          <option value="contrast">contrast</option>
         </select>
         <select onChange={(e) => setRenderer(e.target.value)} value={renderer}>
           <option value="maplibregl">maplibregl</option>
