@@ -357,7 +357,7 @@ export default function MapViewComponent() {
   const handleKeyPress = (event: KeyboardEvent<HTMLDivElement>) => {
     const c = event.charCode;
     if (c >= 49 && c <= 53) {
-      setTheme(["light", "dark", "white", "grayscale", "black", "contrast"][c - 49]);
+      setTheme(["light", "dark", "white", "grayscale", "black", "contrast", "contrast_darkmode"][c - 49]);
     }
   };
 
@@ -424,6 +424,7 @@ export default function MapViewComponent() {
           <option value="grayscale">data viz (grayscale)</option>
           <option value="black">data viz (black)</option>
           <option value="contrast">contrast</option>
+          <option value="contrast_darkmode">contrast darkmode</option>
         </select>
         <select onChange={(e) => setRenderer(e.target.value)} value={renderer}>
           <option value="maplibregl">maplibregl</option>
