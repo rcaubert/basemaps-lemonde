@@ -12,7 +12,6 @@ dist
 *.njsproj
 *.sln
 *.sw?
-package-lock.json
 logs
 *.log
 npm-debug.log*
