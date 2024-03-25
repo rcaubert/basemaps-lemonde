@@ -13,6 +13,7 @@ export function noLabels(source: string, key: string): LayerSpecification[] {
 }
 
 export function labels(source: string, key: string, lang: string): LayerSpecification[] {
+  console.log("labels")
   const theme = themes[key];
   return labels_layers(source, theme, lang='fr');
 }
