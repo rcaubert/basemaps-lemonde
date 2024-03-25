@@ -27,6 +27,7 @@ export function nolabels_layers(
       type: "fill",
       source: source,
       "source-layer": "landuse",
+      minzoom: 8,
       filter: [
         "any",
         [
@@ -46,7 +47,7 @@ export function nolabels_layers(
           "interpolate",
           ["linear"],
           ["zoom"],
-          0,
+          8,
           t.park_a,
           12,
           t.park_b,
@@ -135,13 +136,14 @@ export function nolabels_layers(
       type: "fill",
       source: source,
       "source-layer": "natural",
+      minzoom: 8,
       filter: ["any", ["in", "pmap:kind", "wood", "nature_reserve", "forest"]],
       paint: {
         "fill-color": [
           "interpolate",
           ["linear"],
           ["zoom"],
-          0,
+          8,
           t.wood_a,
           12,
           t.wood_b,
@@ -159,7 +161,7 @@ export function nolabels_layers(
           "interpolate",
           ["linear"],
           ["zoom"],
-          0,
+          8,
           t.scrub_a,
           12,
           t.scrub_b,
@@ -1634,7 +1636,8 @@ export function nolabels_layers(
   ];
 }
 
-export function labels_layers(source: string, t: Theme): LayerSpecification[] {
+export function labels_layers(source: string, t: Theme, lang: string): LayerSpecification[] {
+  console.log("lang", lang)
   return [
     {
       id: "physical_line_waterway_label",
@@ -1646,7 +1649,8 @@ export function labels_layers(source: string, t: Theme): LayerSpecification[] {
       layout: {
         "symbol-placement": "line",
         "text-font": ["Noto Sans Regular"],
-        "text-field": ["get", "name"],
+        //"text-field": ["get", "name"],
+        "text-field": ["get", `{name:${lang}}`],
         "text-size": 12,
         "text-letter-spacing": 0.3,
       },
@@ -1662,7 +1666,8 @@ export function labels_layers(source: string, t: Theme): LayerSpecification[] {
       filter: ["any", ["==", "pmap:kind", "peak"]],
       layout: {
         "text-font": ["Noto Sans Italic"],
-        "text-field": ["get", "name"],
+        //"text-field": ["get", "name"],
+        "text-field": ["get", `{name:${lang}}`],
         "text-size": ["interpolate", ["linear"], ["zoom"], 10, 8, 16, 12],
         "text-letter-spacing": 0.1,
         "text-max-width": 9,
@@ -1683,7 +1688,8 @@ export function labels_layers(source: string, t: Theme): LayerSpecification[] {
         "symbol-sort-key": ["get", "pmap:min_zoom"],
         "symbol-placement": "line",
         "text-font": ["Noto Sans Regular"],
-        "text-field": ["get", "name"],
+        //"text-field": ["get", "name"],
+        "text-field": ["get", `{name:${lang}}`],
         "text-size": 12,
       },
       paint: {
@@ -1736,7 +1742,8 @@ export function labels_layers(source: string, t: Theme): LayerSpecification[] {
       ],
       layout: {
         "text-font": ["Noto Sans Medium"],
-        "text-field": ["get", "name"],
+       //"text-field": ["get", "name"],
+        "text-field": ["get", `{name:${lang}}`],
         "text-size": ["interpolate", ["linear"], ["zoom"], 3, 10, 10, 12],
         "text-letter-spacing": 0.1,
         "text-max-width": 9,
@@ -1754,7 +1761,8 @@ export function labels_layers(source: string, t: Theme): LayerSpecification[] {
       filter: ["any", ["in", "pmap:kind", "lake", "water"]],
       layout: {
         "text-font": ["Noto Sans Medium"],
-        "text-field": ["get", "name"],
+        //"text-field": ["get", "name"],
+        "text-field": ["get", `{name:${lang}}`],
         "text-size": ["interpolate", ["linear"], ["zoom"], 3, 0, 6, 12, 10, 12],
         "text-letter-spacing": 0.1,
         "text-max-width": 9,
@@ -1777,7 +1785,8 @@ export function labels_layers(source: string, t: Theme): LayerSpecification[] {
         "symbol-sort-key": ["get", "pmap:min_zoom"],
         "symbol-placement": "line",
         "text-font": ["Noto Sans Regular"],
-        "text-field": ["get", "name"],
+        //"text-field": ["get", "name"],
+        "text-field": ["get", `{name:${lang}}`],
         "text-size": 12,
       },
       paint: {
@@ -1794,7 +1803,8 @@ export function labels_layers(source: string, t: Theme): LayerSpecification[] {
       filter: ["==", "pmap:kind", "neighbourhood"],
       layout: {
         "symbol-sort-key": ["get", "pmap:min_zoom"],
-        "text-field": "{name}",
+        //"text-field": "{name}",
+        "text-field": `{name:${lang}}`,
         "text-font": ["Noto Sans Regular"],
         "text-max-width": 7,
         "text-letter-spacing": 0.1,
@@ -1820,7 +1830,7 @@ export function labels_layers(source: string, t: Theme): LayerSpecification[] {
           14,
           14,
           18,
-          24,
+          14,
         ],
         "text-transform": "uppercase",
       },
@@ -1839,7 +1849,8 @@ export function labels_layers(source: string, t: Theme): LayerSpecification[] {
       layout: {
         "symbol-sort-key": ["get", "pmap:min_zoom"],
         "text-font": ["Noto Sans Regular"],
-        "text-field": ["get", "name"],
+        //"text-field": ["get", "name"],
+        "text-field": ["get", `{name:${lang}}`],
         "text-size": 11,
         "text-max-width": 9,
         "icon-padding": [
@@ -1864,7 +1875,7 @@ export function labels_layers(source: string, t: Theme): LayerSpecification[] {
         "text-halo-width": 1.5,
       },
     },
-    {
+    /*{
       id: "places_locality_circle",
       type: "circle",
       source: source,
@@ -1878,7 +1889,7 @@ export function labels_layers(source: string, t: Theme): LayerSpecification[] {
         "circle-translate": [-6, 0],
       },
       maxzoom: 8,
-    },
+    },*/
     {
       id: "places_locality",
       type: "symbol",
@@ -1886,7 +1897,13 @@ export function labels_layers(source: string, t: Theme): LayerSpecification[] {
       "source-layer": "places",
       filter: ["==", "pmap:kind", "locality"],
       layout: {
-        "text-field": "{name}",
+        //"text-field": `{name:${lang}}`,
+        //"text-field": "{name}",
+        "text-field": [
+          "coalesce",
+          ["get", `name:${lang}`],
+          ["get", "name"]
+        ],
         "text-font": [
           "case",
           ["<=", ["get", "pmap:min_zoom"], 5],
@@ -1914,34 +1931,34 @@ export function labels_layers(source: string, t: Theme): LayerSpecification[] {
             ["<", ["get", "pmap:population_rank"], 13],
             8,
             [">=", ["get", "pmap:population_rank"], 13],
-            13,
+            11,
             0,
           ],
           4,
           [
             "case",
             ["<", ["get", "pmap:population_rank"], 13],
-            10,
+            9,
             [">=", ["get", "pmap:population_rank"], 13],
-            15,
+            13,
             0,
           ],
           6,
           [
             "case",
             ["<", ["get", "pmap:population_rank"], 12],
-            11,
+            10,
             [">=", ["get", "pmap:population_rank"], 12],
-            17,
+            15,
             0,
           ],
           8,
           [
             "case",
             ["<", ["get", "pmap:population_rank"], 11],
-            11,
+            10,
             [">=", ["get", "pmap:population_rank"], 11],
-            18,
+            15,
             0,
           ],
           10,
@@ -1950,7 +1967,7 @@ export function labels_layers(source: string, t: Theme): LayerSpecification[] {
             ["<", ["get", "pmap:population_rank"], 9],
             12,
             [">=", ["get", "pmap:population_rank"], 9],
-            20,
+            17,
             0,
           ],
           15,
@@ -1959,7 +1976,7 @@ export function labels_layers(source: string, t: Theme): LayerSpecification[] {
             ["<", ["get", "pmap:population_rank"], 8],
             12,
             [">=", ["get", "pmap:population_rank"], 8],
-            22,
+            17,
             0,
           ],
         ],
@@ -2022,7 +2039,8 @@ export function labels_layers(source: string, t: Theme): LayerSpecification[] {
       filter: ["==", "pmap:kind", "country"],
       layout: {
         "symbol-sort-key": ["get", "pmap:min_zoom"],
-        "text-field": "{name}",
+        //"text-field": "{name}",
+        "text-field": `{name:${lang}}`,
         "text-font": ["Noto Sans Medium"],
         "text-size": [
           "interpolate",
@@ -2043,16 +2061,16 @@ export function labels_layers(source: string, t: Theme): LayerSpecification[] {
             ["<", ["get", "pmap:population_rank"], 8],
             10,
             [">=", ["get", "pmap:population_rank"], 8],
-            18,
+            12,
             0,
           ],
           8,
           [
             "case",
             ["<", ["get", "pmap:population_rank"], 7],
-            11,
+            10,
             [">=", ["get", "pmap:population_rank"], 7],
-            20,
+            12,
             0,
           ],
         ],
