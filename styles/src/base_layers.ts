@@ -1650,7 +1650,12 @@ export function labels_layers(source: string, t: Theme, lang: string): LayerSpec
         "symbol-placement": "line",
         "text-font": ["Noto Sans Regular"],
         //"text-field": ["get", "name"],
-        "text-field": ["get", `{name:${lang}}`],
+        //"text-field": ["get", `{name:${lang}}`],
+        "text-field": [
+          "coalesce",
+          ["get", `name:${lang}`],
+          ["get", "name"]
+        ],
         "text-size": 12,
         "text-letter-spacing": 0.3,
       },
@@ -1667,7 +1672,12 @@ export function labels_layers(source: string, t: Theme, lang: string): LayerSpec
       layout: {
         "text-font": ["Noto Sans Italic"],
         //"text-field": ["get", "name"],
-        "text-field": ["get", `{name:${lang}}`],
+        //"text-field": ["get", `{name:${lang}}`],
+        "text-field": [
+          "coalesce",
+          ["get", `name:${lang}`],
+          ["get", "name"]
+        ],
         "text-size": ["interpolate", ["linear"], ["zoom"], 10, 8, 16, 12],
         "text-letter-spacing": 0.1,
         "text-max-width": 9,
@@ -1689,7 +1699,12 @@ export function labels_layers(source: string, t: Theme, lang: string): LayerSpec
         "symbol-placement": "line",
         "text-font": ["Noto Sans Regular"],
         //"text-field": ["get", "name"],
-        "text-field": ["get", `{name:${lang}}`],
+        //"text-field": ["get", `{name:${lang}}`],
+        "text-field": [
+          "coalesce",
+          ["get", `name:${lang}`],
+          ["get", "name"]
+        ],
         "text-size": 12,
       },
       paint: {
@@ -1743,7 +1758,12 @@ export function labels_layers(source: string, t: Theme, lang: string): LayerSpec
       layout: {
         "text-font": ["Noto Sans Medium"],
        //"text-field": ["get", "name"],
-        "text-field": ["get", `{name:${lang}}`],
+        //"text-field": ["get", `{name:${lang}}`],
+        "text-field": [
+          "coalesce",
+          ["get", `name:${lang}`],
+          ["get", "name"]
+        ],
         "text-size": ["interpolate", ["linear"], ["zoom"], 3, 10, 10, 12],
         "text-letter-spacing": 0.1,
         "text-max-width": 9,
@@ -1762,7 +1782,12 @@ export function labels_layers(source: string, t: Theme, lang: string): LayerSpec
       layout: {
         "text-font": ["Noto Sans Medium"],
         //"text-field": ["get", "name"],
-        "text-field": ["get", `{name:${lang}}`],
+        //"text-field": ["get", `{name:${lang}}`],
+        "text-field": [
+          "coalesce",
+          ["get", `name:${lang}`],
+          ["get", "name"]
+        ],
         "text-size": ["interpolate", ["linear"], ["zoom"], 3, 0, 6, 12, 10, 12],
         "text-letter-spacing": 0.1,
         "text-max-width": 9,
@@ -1786,7 +1811,12 @@ export function labels_layers(source: string, t: Theme, lang: string): LayerSpec
         "symbol-placement": "line",
         "text-font": ["Noto Sans Regular"],
         //"text-field": ["get", "name"],
-        "text-field": ["get", `{name:${lang}}`],
+        //"text-field": ["get", `{name:${lang}}`],
+        "text-field": [
+          "coalesce",
+          ["get", `name:${lang}`],
+          ["get", "name"]
+        ],
         "text-size": 12,
       },
       paint: {
@@ -1804,7 +1834,12 @@ export function labels_layers(source: string, t: Theme, lang: string): LayerSpec
       layout: {
         "symbol-sort-key": ["get", "pmap:min_zoom"],
         //"text-field": "{name}",
-        "text-field": `{name:${lang}}`,
+        //"text-field": `{name:${lang}}`,
+        "text-field": [
+          "coalesce",
+          ["get", `name:${lang}`],
+          ["get", "name"]
+        ],
         "text-font": ["Noto Sans Regular"],
         "text-max-width": 7,
         "text-letter-spacing": 0.1,
@@ -1850,7 +1885,12 @@ export function labels_layers(source: string, t: Theme, lang: string): LayerSpec
         "symbol-sort-key": ["get", "pmap:min_zoom"],
         "text-font": ["Noto Sans Regular"],
         //"text-field": ["get", "name"],
-        "text-field": ["get", `{name:${lang}}`],
+        //"text-field": ["get", `{name:${lang}}`],
+        "text-field": [
+          "coalesce",
+          ["get", `name:${lang}`],
+          ["get", "name"]
+        ],
         "text-size": 11,
         "text-max-width": 9,
         "icon-padding": [
@@ -2040,7 +2080,12 @@ export function labels_layers(source: string, t: Theme, lang: string): LayerSpec
       layout: {
         "symbol-sort-key": ["get", "pmap:min_zoom"],
         //"text-field": "{name}",
-        "text-field": `{name:${lang}}`,
+        //"text-field": `{name:${lang}}`,
+        "text-field": [
+          "coalesce",
+          ["get", `name:${lang}`],
+          ["get", "name"]
+        ],
         "text-font": ["Noto Sans Medium"],
         "text-size": [
           "interpolate",
