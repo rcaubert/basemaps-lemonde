@@ -29,9 +29,6 @@ import { createHash, parseHash } from "./hash";
 
 const GIT_SHA = (import.meta.env.VITE_GIT_SHA || "main").substr(0, 8);
 
-const ATTRIBUTION =
-  '<a href="https://github.com/protomaps/basemaps">Protomaps</a> © <a href="https://openstreetmap.org">OpenStreetMap</a>';
-
 function getSourceLayer(l: LayerSpecification): string {
   if ("source-layer" in l && l["source-layer"]) {
     return l["source-layer"];
@@ -92,39 +89,31 @@ function getMaplibreStyle(
   let tilesWithProtocol: string;
   if (isValidPMTiles(tiles)) {
     tilesWithProtocol = `pmtiles://${tiles}`;
-  } else {
-    tilesWithProtocol = tiles;
-  }
-  style.layers = [];
-  style.glyphs =
-    "https://protomaps.github.io/basemaps-assets/fonts/{fontstack}/{range}.pbf";
-
-  if (droppedArchive) {
-    console.log("dropped")
     style.sources = {
       protomaps: {
         type: "vector",
-        attribution: ATTRIBUTION,
-        tiles: [`pmtiles://${droppedArchive.source.getKey()}/{z}/{x}/{y}`],
-        minzoom: minZoom,
-        maxzoom: maxZoom,
-      },
-    };
-  } else {
-    console.log("no dropped archive")
-    style.sources = {
-      protomaps: {
-        type: "vector",
-        attribution: ATTRIBUTION,
         url: tilesWithProtocol,
       },
     };
+  } else {
+    console.log("notvalidpmtiles")
+    tilesWithProtocol = tiles;
+      style.sources = {
+        protomaps: {
+            type: "vector",
+            maxzoom: 15,
+            tiles: [`${tilesWithProtocol}`],
+        }
+    };
   }
+  style.layers = [];
+  style.glyphs = "https://assets-decodeurs.lemonde.fr/decodeurs/assets/protomaps_fonts/{fontstack}/{range}.pbf";
+  console.log("tiles", tilesWithProtocol, tiles)
 
   if (npmLayers && npmLayers.length > 0) {
     style.layers = style.layers.concat(npmLayers);
   } else {
-    style.layers = style.layers.concat(layers("protomaps", theme));
+    style.layers = style.layers.concat(layers("protomaps", theme, 'fr'));
   }
 
   return style;
@@ -310,7 +299,7 @@ function OpenLayersView(props: { theme: string; tiles?: string }) {
 // if no tiles are passed, loads the latest daily build.
 export default function MapViewComponent() {
   const hash = parseHash(location.hash);
-  const [theme, setTheme] = useState<string>(hash.theme || "light");
+  const [theme, setTheme] = useState<string>(hash.theme || "contrast_daltoniens");
   const [tiles, setTiles] = useState<string | undefined>(hash.tiles);
   const [renderer, setRenderer] = useState<string>(
     hash.renderer || "maplibregl",
@@ -334,6 +323,7 @@ export default function MapViewComponent() {
   });
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
+    console.log("drop", acceptedFiles)
     setDroppedArchive(new PMTiles(new FileSource(acceptedFiles[0])));
   }, []);
 
@@ -357,7 +347,7 @@ export default function MapViewComponent() {
   const handleKeyPress = (event: KeyboardEvent<HTMLDivElement>) => {
     const c = event.charCode;
     if (c >= 49 && c <= 53) {
-      setTheme(["light", "dark", "white", "grayscale", "black", "contrast", "contrast_darkmode", "contrast_daltoniens", "contrast_daltoniens_darkmode"][c - 49]);
+      setTheme([ "contrast_daltoniens", "contrast_daltoniens_darkmode", "contrast", "contrast_darkmode", "light", "dark", "white", "grayscale", "black"][c - 49]);
     }
   };
 
@@ -418,15 +408,16 @@ export default function MapViewComponent() {
         </form>
         <span {...getRootProps()}>Drop Zone</span>
         <select onChange={(e) => setTheme(e.target.value)} value={theme}>
+          <option value="contrast_daltoniens">contrast daltoniens</option>
+          <option value="contrast_daltoniens_darkmode">contrast daltoniens darkmode</option>
+          <option value="contrast">contrast</option>
+          <option value="contrast_darkmode">contrast darkmode</option>
           <option value="light">light</option>
           <option value="dark">dark</option>
           <option value="white">data viz (white)</option>
           <option value="grayscale">data viz (grayscale)</option>
           <option value="black">data viz (black)</option>
-          <option value="contrast">contrast</option>
-          <option value="contrast_darkmode">contrast darkmode</option>
-          <option value="contrast_daltoniens">contrast daltoniens</option>
-          <option value="contrast_daltoniens_darkmode">contrast daltoniens darkmode</option>
+
         </select>
         <select onChange={(e) => setRenderer(e.target.value)} value={renderer}>
           <option value="maplibregl">maplibregl</option>

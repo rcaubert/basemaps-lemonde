@@ -1648,9 +1648,7 @@ export function labels_layers(source: string, t: Theme, lang: string): LayerSpec
       filter: ["all", ["in", "pmap:kind", "river", "stream"]],
       layout: {
         "symbol-placement": "line",
-        "text-font": ["Noto Sans Regular"],
-        //"text-field": ["get", "name"],
-        //"text-field": ["get", `{name:${lang}}`],
+        "text-font": ["Marr Sans Regular"],
         "text-field": [
           "coalesce",
           ["get", `name:${lang}`],
@@ -1670,9 +1668,8 @@ export function labels_layers(source: string, t: Theme, lang: string): LayerSpec
       "source-layer": "physical_point",
       filter: ["any", ["==", "pmap:kind", "peak"]],
       layout: {
-        "text-font": ["Noto Sans Italic"],
-        //"text-field": ["get", "name"],
-        //"text-field": ["get", `{name:${lang}}`],
+        "text-font": ["Marr Sans Cond Regular"],
+        //"text-font": ["Noto Sans Italic"],
         "text-field": [
           "coalesce",
           ["get", `name:${lang}`],
@@ -1697,9 +1694,7 @@ export function labels_layers(source: string, t: Theme, lang: string): LayerSpec
       layout: {
         "symbol-sort-key": ["get", "pmap:min_zoom"],
         "symbol-placement": "line",
-        "text-font": ["Noto Sans Regular"],
-        //"text-field": ["get", "name"],
-        //"text-field": ["get", `{name:${lang}}`],
+        "text-font": ["Marr Sans Regular"],
         "text-field": [
           "coalesce",
           ["get", `name:${lang}`],
@@ -1722,7 +1717,7 @@ export function labels_layers(source: string, t: Theme, lang: string): LayerSpec
     //   "filter": ["any", [">=", ["get", "pmap:min_zoom"], 13]],
     //   layout: {
     //     "symbol-sort-key": ["get", "pmap:min_zoom"],
-    //     "text-font": ["Noto Sans Regular"],
+    //     "text-font": ["Marr Sans Regular"],
     //     "text-field": ["get", "name"],
     //     "text-size": 11,
     //     "text-max-width": 9,
@@ -1756,9 +1751,8 @@ export function labels_layers(source: string, t: Theme, lang: string): LayerSpec
         ],
       ],
       layout: {
-        "text-font": ["Noto Sans Medium"],
-       //"text-field": ["get", "name"],
-        //"text-field": ["get", `{name:${lang}}`],
+        "text-font": ["Marr Sans Cond Medium"],
+        //"text-font": ["Noto Sans Medium"],
         "text-field": [
           "coalesce",
           ["get", `name:${lang}`],
@@ -1780,9 +1774,8 @@ export function labels_layers(source: string, t: Theme, lang: string): LayerSpec
       "source-layer": "physical_point",
       filter: ["any", ["in", "pmap:kind", "lake", "water"]],
       layout: {
-        "text-font": ["Noto Sans Medium"],
-        //"text-field": ["get", "name"],
-        //"text-field": ["get", `{name:${lang}}`],
+        "text-font": ["Marr Sans Cond Medium"],
+        //"text-font": ["Noto Sans Medium"],
         "text-field": [
           "coalesce",
           ["get", `name:${lang}`],
@@ -1809,9 +1802,7 @@ export function labels_layers(source: string, t: Theme, lang: string): LayerSpec
       layout: {
         "symbol-sort-key": ["get", "pmap:min_zoom"],
         "symbol-placement": "line",
-        "text-font": ["Noto Sans Regular"],
-        //"text-field": ["get", "name"],
-        //"text-field": ["get", `{name:${lang}}`],
+        "text-font": ["Marr Sans Regular"],
         "text-field": [
           "coalesce",
           ["get", `name:${lang}`],
@@ -1840,7 +1831,7 @@ export function labels_layers(source: string, t: Theme, lang: string): LayerSpec
           ["get", `name:${lang}`],
           ["get", "name"]
         ],
-        "text-font": ["Noto Sans Regular"],
+        "text-font": ["Marr Sans Regular"],
         "text-max-width": 7,
         "text-letter-spacing": 0.1,
         "text-padding": [
@@ -1883,9 +1874,7 @@ export function labels_layers(source: string, t: Theme, lang: string): LayerSpec
       filter: ["any", ["<", ["get", "pmap:min_zoom"], 13]],
       layout: {
         "symbol-sort-key": ["get", "pmap:min_zoom"],
-        "text-font": ["Noto Sans Regular"],
-        //"text-field": ["get", "name"],
-        //"text-field": ["get", `{name:${lang}}`],
+        "text-font": ["Marr Sans Regular"],
         "text-field": [
           "coalesce",
           ["get", `name:${lang}`],
@@ -1937,8 +1926,6 @@ export function labels_layers(source: string, t: Theme, lang: string): LayerSpec
       "source-layer": "places",
       filter: ["==", "pmap:kind", "locality"],
       layout: {
-        //"text-field": `{name:${lang}}`,
-        //"text-field": "{name}",
         "text-field": [
           "coalesce",
           ["get", `name:${lang}`],
@@ -1947,8 +1934,9 @@ export function labels_layers(source: string, t: Theme, lang: string): LayerSpec
         "text-font": [
           "case",
           ["<=", ["get", "pmap:min_zoom"], 5],
-          ["literal", ["Noto Sans Medium"]],
-          ["literal", ["Noto Sans Regular"]],
+          //["literal", ["Noto Sans Medium"]],
+          ["literal", ["Marr Sans Regular"]],
+          ["literal", ["Marr Sans Regular"]],
         ],
         "text-padding": [
           "interpolate",
@@ -2059,7 +2047,7 @@ export function labels_layers(source: string, t: Theme, lang: string): LayerSpec
           6,
           ["get", "name"],
         ],
-        "text-font": ["Noto Sans Regular"],
+        "text-font": ["Marr Sans Regular"],
         "text-size": ["interpolate", ["linear"], ["zoom"], 3, 11, 7, 16],
         "text-radial-offset": 0.2,
         "text-anchor": "center",
@@ -2079,14 +2067,13 @@ export function labels_layers(source: string, t: Theme, lang: string): LayerSpec
       filter: ["==", "pmap:kind", "country"],
       layout: {
         "symbol-sort-key": ["get", "pmap:min_zoom"],
-        //"text-field": "{name}",
-        //"text-field": `{name:${lang}}`,
         "text-field": [
           "coalesce",
           ["get", `name:${lang}`],
           ["get", "name"]
         ],
-        "text-font": ["Noto Sans Medium"],
+        "text-font": ["Marr Sans Cond Medium"],
+        //"text-font": ["Noto Sans Medium"],
         "text-size": [
           "interpolate",
           ["linear"],
