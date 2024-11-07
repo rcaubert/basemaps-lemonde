@@ -1217,7 +1217,12 @@ export function nolabels_layers(
       type: "line",
       source: source,
       "source-layer": "boundaries",
-      filter: ["<=", "pmap:min_admin_level", 2],
+      filter: [
+        "all",
+        ["<=", "pmap:min_admin_level", 2],
+        ["!=", "pmap:brk_a3", "B28"],
+        //["!=", "disputed", true],
+      ],
       paint: {
         "line-color": t.boundaries,
         "line-width": 1,
@@ -1229,7 +1234,10 @@ export function nolabels_layers(
       type: "line",
       source: source,
       "source-layer": "boundaries",
-      filter: [">", "pmap:min_admin_level", 2],
+      filter: [
+        "all",
+        [">", "pmap:min_admin_level", 2],
+      ],
       paint: {
         "line-color": t.boundaries,
         "line-width": 0.5,
